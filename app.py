@@ -32,6 +32,7 @@ def worker_loop():
             time.sleep(0.5)
 
 # start background worker (daemon so process exits cleanly)
-t = threading.Thread(target=worker_loop, daemon=True)
-t.start()
+#t = threading.Thread(target=worker_loop, daemon=True)
+#t.start()
+
 
