@@ -11,6 +11,14 @@ def enqueue(priority: int = Form(...), payload: str = Form(...)):
     q.enqueue(Message(priority, payload))
     return {"status": "enqueued", "priority": priority, "payload": payload}
 
+@app.get("/dequeue")
+def dequeue():
+    msg = q.dequeue()
+    if msg:
+        return {"priority": msg.priority, "payload": msg.payload}
+    return {"status": "queue empty"}
+
+
 @app.get("/size")
 def size():
     return {"size": q.size()}
@@ -26,3 +34,4 @@ def worker_loop():
 # start background worker (daemon so process exits cleanly)
 t = threading.Thread(target=worker_loop, daemon=True)
 t.start()
+
